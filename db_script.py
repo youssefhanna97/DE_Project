@@ -7,14 +7,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 DB_CONFIG = {
-    "host": "localhost",
-    "port": 5432,
+    "host": os.getenv("DB_HOST"),
+    "port": os.getenv("POSTGRES_PORT"),
     "dbname": os.getenv("POSTGRES_DB"),
     "user": os.getenv("POSTGRES_USER"),
-    "password": os.getenv("POSTGRES_PASSWORD"),
+    "password": os.getenv("POSTGRES_PASSWORD")
 }
 
-fake = Faker()
 
 def main():
     conn = psycopg2.connect(**DB_CONFIG)
