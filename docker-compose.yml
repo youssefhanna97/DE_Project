@@ -14,11 +14,19 @@ services:
     container_name: pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_USER}
-      PGADMIN_DEFAULT_PASSWORD: ${PG_Pass}
+      PGADMIN_DEFAULT_PASSWORD: ${PG_PASS}
     ports:
       - "9090:80"
     volumes:
       - pgadmin-data:/var/lib/pgadmin
+
+  python-app:
+    image: python:3.11-slim
+    container_name: python-app
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: tail -f /dev/null  
 volumes:
   postgres-data:
   pgadmin-data:
