@@ -50,6 +50,31 @@ services:
       airflow users create --username admin --password admin --firstname admin --lastname admin --role Admin --email admin@airflow.com || true &&
       airflow webserver --port 8080 & airflow scheduler
       "
+  nifi:
+    image: apache/nifi:latest
+    container_name: nifi
+    ports:
+      - "8443:8443"
+    environment:
+      NIFI_WEB_HTTP_PORT: 8443
+      SINGLE_USER_CREDENTIALS_USERNAME: admin
+      SINGLE_USER_CREDENTIALS_PASSWORD: admin_123456
+    volumes:
+      - nifi_content:/opt/nifi/nifi-current/content_repository
+      - nifi_flowfile:/opt/nifi/nifi-current/flowfile_repository
+      - nifi_database:/opt/nifi/nifi-current/database_repository
+      - nifi_provenance:/opt/nifi/nifi-current/provenance_repository
+      - nifi_state:/opt/nifi/nifi-current/state
+      - nifi_logs:/opt/nifi/nifi-current/logs
+      - ./nifi-output:/opt/nifi/output
+    restart: unless-stopped
+
 volumes:
   postgres-data:
   pgadmin-data:
+  nifi_content:
+  nifi_flowfile:
+  nifi_database:
+  nifi_provenance:
+  nifi_state:
+  nifi_logs:
