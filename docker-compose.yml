@@ -68,7 +68,33 @@ services:
       - nifi_logs:/opt/nifi/nifi-current/logs
       - ./nifi-output:/opt/nifi/output
     restart: unless-stopped
+  
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elastic-data:/usr/share/elasticsearch/data
+    restart: unless-stopped
 
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.13.0
+    container_name: kibana
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5601:5601"
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    restart: unless-stopped
+
+    
 volumes:
   postgres-data:
   pgadmin-data:
@@ -78,3 +104,4 @@ volumes:
   nifi_provenance:
   nifi_state:
   nifi_logs:
+  elastic-data:
