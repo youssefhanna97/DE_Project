@@ -1,0 +1,72 @@
+investment-platform/
+│
+├── docker/
+│   ├── docker-compose.yml
+│   ├── postgres/
+│   ├── airflow/
+│   ├── nifi/
+│   ├── elastic/
+│   └── kibana/
+│
+├── ingestion/
+│   ├── nifi/
+│   │   ├── market_data_flow.xml
+│   │   ├── fundamentals_flow.xml
+│   │   └── macro_flow.xml
+│   └── python/
+│       ├── connectors/
+│       │   ├── prices.py
+│       │   ├── fundamentals.py
+│       │   └── macro.py
+│       └── validators/
+│
+├── warehouse/
+│   ├── dbt/
+│   │   ├── models/
+│   │   │   ├── staging/
+│   │   │   ├── core/
+│   │   │   └── marts/
+│   │   ├── tests/
+│   │   └── macros/
+│   └── schemas/
+│
+├── analytics/
+│   ├── valuation/
+│   ├── risk/
+│   ├── portfolio/
+│   ├── backtesting/
+│   └── attribution/
+│
+├── orchestration/
+│   ├── dags/
+│   │   ├── daily_market_data.py
+│   │   ├── weekly_fundamentals.py
+│   │   └── monthly_rebalance.py
+│   └── jobs/
+│
+├── monitoring/
+│   ├── elastic/
+│   ├── signals/
+│   └── alerts/
+│
+├── dashboards/
+│   ├── kibana/
+│   └── notebooks/
+│
+├── strategies/
+│   ├── value_equity_v1/
+│   ├── low_vol_v1/
+│   └── multi_factor_v1/
+│
+├── config/
+│   ├── assets.yml
+│   ├── risk_limits.yml
+│   └── strategies.yml
+│
+├── docs/
+│   ├── architecture.md
+│   ├── data_dictionary.md
+│   ├── strategy_notes.md
+│   └── assumptions.md
+│
+└── README.md

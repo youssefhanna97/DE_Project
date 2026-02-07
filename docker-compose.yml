@@ -20,6 +20,7 @@ services:
       - "9090:80"
     volumes:
       - pgadmin-data:/var/lib/pgadmin
+    user: root 
   
   python-app:
     image: python:3.11-slim
@@ -46,6 +47,7 @@ services:
       - "8081:8080"
     command: >
       bash -c "
+      pip install --no-cache-dir yfinance pandas psycopg2-binary &&
       airflow db migrate &&
       airflow users create --username admin --password admin --firstname admin --lastname admin --role Admin --email admin@airflow.com || true &&
       airflow webserver --port 8080 & airflow scheduler
